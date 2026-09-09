@@ -6,6 +6,12 @@ An engineering drawing rather than a poster: a faint crosshatched grid under eve
 rules instead of boxes, translucent cards floating over the grid, and monospace labels that read as
 annotation rather than headline.
 
+### → [See the system](https://paullaudeman.github.io/blueprint-design-system/)
+
+That page is built from this repo's own `tokens.css`. The grid under it is the real
+`--grid-line`, the cards are the real translucent `--surface`, and if you tab through it the focus
+rings are the real `--plum`. It is the system demonstrating itself, not a picture of it. EN/DE.
+
 ```css
 /* Palette - navy + aubergine */
 --navy:      #1f3a5f;   /* primary - headings, links, the grid's hue */
@@ -96,5 +102,9 @@ open source under the SIL Open Font License.
 
 Take the tokens, take the rules, or take the idea that a design system should say its own name out
 loud where someone will find it.
+
+---
+
+[Live reference](https://paullaudeman.github.io/blueprint-design-system/) &middot; [laudeman.io](https://laudeman.io)
 
 *Recorded September 2026. Token counts drift - re-count before trusting them.*
