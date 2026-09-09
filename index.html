@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="darkreader-lock">
+<title>Blueprint</title>
+<meta name="description" content="The design system behind laudeman.io. An engineering drawing, not a poster.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* This page is built from tokens.css. It is the system demonstrating itself. */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding-block:var(--space-2xl);
+  padding-left:clamp(18px,5vw,3rem);
+  padding-right:clamp(18px,5vw,3rem);
+  font-family:var(--font-sans);
+  font-size:var(--step-0);
+  line-height:1.6;
+  color:var(--charcoal);
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:var(--grid-size) var(--grid-size);
+}
+.wrap{max-width:62rem;margin-inline:0 auto;padding-right:clamp(0px,6vw,7rem)}
+h1{font-size:var(--step-4);line-height:1.05;margin:0 0 .1em;color:var(--navy);
+  font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:var(--step-2);margin:var(--space-2xl) 0 var(--space-sm);color:var(--navy);
+  font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:var(--step-0);margin:var(--space-lg) 0 var(--space-xs);color:var(--navy);font-weight:600}
+p,li{max-width:62ch}
+a{color:var(--navy)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
+.lead{font-size:var(--step-1);color:var(--slate);max-width:54ch;margin-top:var(--space-sm)}
+.label{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--slate);margin:0}
+code{font-family:var(--font-mono);font-size:.88em;color:var(--navy)}
+hr{border:0;border-top:1px solid var(--hairline);margin:var(--space-2xl) 0}
+
+/* the one control on the page */
+.lang{position:absolute;top:var(--space-md);right:clamp(18px,5vw,3rem);
+  font-family:var(--font-mono);font-size:var(--step--1)}
+.lang button{font:inherit;background:var(--surface);color:var(--slate);cursor:pointer;
+  border:1px solid var(--hairline);padding:.25rem .55rem}
+.lang button[aria-pressed="true"]{color:var(--navy);background:var(--surface-hover);font-weight:500}
+
+/* cards are glass over the grid - the defining surface of the system */
+.card{background:var(--surface);border:1px solid var(--hairline);padding:var(--space-md);
+  backdrop-filter:blur(2px)}
+.grid2{display:grid;gap:var(--space-md);grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));
+  margin:var(--space-md) 0}
+
+/* palette */
+.sw{display:grid;gap:0;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+  border:1px solid var(--hairline);margin:var(--space-md) 0}
+.sw div{padding:var(--space-sm);border-right:1px solid var(--hairline);background:#fff}
+.sw div:last-child{border-right:0}
+.sw i{display:block;height:2.6rem;border:1px solid var(--hairline);margin-bottom:.5rem}
+.sw b{font-family:var(--font-mono);font-size:var(--step--1);color:var(--navy);display:block;font-weight:500}
+.sw span{font-family:var(--font-mono);font-size:.68rem;color:var(--slate);display:block}
+.sw em{font-style:normal;font-size:.72rem;color:var(--slate);display:block;margin-top:.35rem}
+
+table{border-collapse:collapse;width:100%;font-size:.94rem;margin:var(--space-md) 0}
+th,td{text-align:left;padding:.55rem .65rem;border-bottom:1px solid var(--hairline);vertical-align:top}
+th{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--slate);font-weight:400}
+.tw{overflow-x:auto}
+
+.warn{border-left:3px solid var(--plum);padding-left:var(--space-md);margin:var(--space-lg) 0}
+.warn p{margin:.3rem 0}
+
+figure{margin:var(--space-md) 0}
+svg{max-width:100%;height:auto;display:block}
+figcaption{font-family:var(--font-mono);font-size:var(--step--1);color:var(--slate);
+  margin-top:.5rem;max-width:62ch}
+
+footer{margin-top:var(--space-2xl);padding-top:var(--space-md);border-top:1px solid var(--hairline);
+  font-family:var(--font-mono);font-size:var(--step--1);color:var(--slate)}
+html[data-lang='en'] [data-i='de']{display:none}
+html[data-lang='de'] [data-i='en']{display:none}
+@media(max-width:640px){.sw div{border-right:0;border-bottom:1px solid var(--hairline)}
+  .wrap{padding-right:0;margin-inline:auto}}
+</style>
+</head>
+<body>
+
+<div class="lang">
+  <button id="b-en" aria-pressed="true" onclick="setLang('en')">EN</button><button
+          id="b-de" aria-pressed="false" onclick="setLang('de')">DE</button>
+</div>
+
+<div class="wrap">
+
+<p class="label">laudeman.io</p>
+<h1>Blueprint</h1>
+<p class="lead">
+  <span data-i="en"><b>Blueprint</b> - the design system behind laudeman.io. An engineering drawing,
+  not a poster.</span>
+  <span data-i="de"><b>Blueprint</b> - das Designsystem hinter laudeman.io. Eine technische Zeichnung,
+  kein Plakat.</span>
+</p>
+
+<p>
+  <span data-i="en">A faint crosshatched grid under everything, hairline rules instead of boxes,
+  translucent cards floating over the grid, and monospace labels that read as annotation rather
+  than headline. <b>This page is built from its own <code>tokens.css</code></b> - what you are
+  looking at is the system, not a picture of it.</span>
+  <span data-i="de">Ein feines Karoraster unter allem, Haarlinien statt Kästen, transluzente Karten
+  über dem Raster und Monospace-Label, die als Bemaßung statt als Überschrift lesen.
+  <b>Diese Seite ist aus ihrer eigenen <code>tokens.css</code> gebaut</b> - Sie sehen das System
+  selbst, kein Bild davon.</span>
+</p>
+
+<h2><span data-i="en">The palette</span><span data-i="de">Die Palette</span></h2>
+
+<div class="sw">
+  <div><i style="background:#1f3a5f"></i><b>--navy</b><span>#1f3a5f</span>
+    <em data-i="en">headings, links, grid hue</em><em data-i="de">Überschriften, Links, Rasterton</em></div>
+  <div><i style="background:#16293f"></i><b>--navy-deep</b><span>#16293f</span>
+    <em data-i="en">hover, pressed</em><em data-i="de">Hover, gedrückt</em></div>
+  <div><i style="background:#5e3458"></i><b>--plum</b><span>#5e3458</span>
+    <em data-i="en">accent + every focus ring</em><em data-i="de">Akzent + jeder Fokusring</em></div>
+  <div><i style="background:#333333"></i><b>--charcoal</b><span>#333333</span>
+    <em data-i="en">body text</em><em data-i="de">Fließtext</em></div>
+  <div><i style="background:#555555"></i><b>--slate</b><span>#555555</span>
+    <em data-i="en">secondary, captions</em><em data-i="de">Sekundär, Bildunterschriften</em></div>
+  <div><i style="background:#f4f5f3"></i><b>--bg</b><span>#f4f5f3</span>
+    <em data-i="en">ground - cool, not cream</em><em data-i="de">Grund - kühl, nicht creme</em></div>
+  <div><i style="background:#c7cdc0"></i><b>--hairline</b><span>#c7cdc0</span>
+    <em data-i="en">every border</em><em data-i="de">jeder Rahmen</em></div>
+  <div><i style="background:rgba(255,255,255,.72)"></i><b>--surface</b><span>rgba(255,255,255,.72)</span>
+    <em data-i="en">glass over the grid</em><em data-i="de">Glas über dem Raster</em></div>
+</div>
+
+<h2><span data-i="en">What it is not</span><span data-i="de">Was es nicht ist</span></h2>
+
+<div class="tw"><table>
+<thead><tr>
+  <th data-i="en">Not</th><th data-i="de">Nicht</th>
+  <th data-i="en">Why the distinction matters</th><th data-i="de">Warum der Unterschied zählt</th>
+</tr></thead>
+<tbody>
+<tr><td><span data-i="en">Flat design</span><span data-i="de">Flat Design</span></td>
+  <td><span data-i="en">Absence of <code>box-shadow</code> is shared by every flat site since 2013.
+    Here it follows from the drawing metaphor, not a trend.</span>
+    <span data-i="de">Kein <code>box-shadow</code> haben alle Flat-Sites seit 2013. Hier folgt es
+    aus der Zeichnungs-Metapher, nicht aus einem Trend.</span></td></tr>
+<tr><td><span data-i="en">Japanese minimalism</span><span data-i="de">Japanischer Minimalismus</span></td>
+  <td><span data-i="en">Frequently mistaken for it. The site's one cultural reference is scoped to
+    a single section, beside the practice it refers to. Site-wide it would be costume.</span>
+    <span data-i="de">Wird oft dafür gehalten. Die einzige kulturelle Referenz der Seite steht in
+    einem Abschnitt, neben der Praxis, auf die sie sich bezieht. Seitenweit wäre sie ein Kostüm.</span></td></tr>
+<tr><td><span data-i="en">A Swiss grid</span><span data-i="de">Ein Schweizer Raster</span></td>
+  <td><span data-i="en">It shares the grammar - IBM Plex descends from Helvetica, which is Swiss -
+    but Swiss composition is asymmetric, and this system still centres its container.</span>
+    <span data-i="de">Es teilt die Grammatik - IBM Plex stammt von Helvetica ab, und die ist
+    schweizerisch - aber Schweizer Komposition ist asymmetrisch, und dieses System zentriert
+    seinen Container noch.</span></td></tr>
+<tr><td><span data-i="en">Themeable</span><span data-i="de">Themefähig</span></td>
+  <td><span data-i="en">One palette, one stylesheet, by design. There is no dark mode, and adding
+    one is not a small change. <b>This page has no theme switcher for that reason.</b></span>
+    <span data-i="de">Eine Palette, ein Stylesheet, bewusst so. Es gibt keinen Dark Mode, und einen
+    hinzuzufügen ist keine Kleinigkeit. <b>Genau deshalb hat diese Seite keinen
+    Theme-Umschalter.</b></span></td></tr>
+</tbody></table></div>
+
+<h2><span data-i="en">Two things that will bite you</span><span data-i="de">Zwei Dinge, die Sie einholen werden</span></h2>
+
+<div class="warn">
+  <p class="label" style="color:var(--plum)">--plum</p>
+  <p><span data-i="en">Four of its 25 uses are <code>outline: 2px solid var(--plum)</code> on focus.
+    It was chosen - consciously or not - because it is <em>not</em> a semantic colour. Swap it for
+    any red and every focus ring reads as an error state, while contrast on <code>--bg</code> drops
+    from roughly 9.1:1 to under 6:1.</span>
+    <span data-i="de">Vier seiner 25 Verwendungen sind <code>outline: 2px solid var(--plum)</code>
+    im Fokus. Es wurde gewählt - bewusst oder nicht - weil es <em>keine</em> semantische Farbe ist.
+    Tauscht man es gegen Rot, liest sich jeder Fokusring als Fehlerzustand, und der Kontrast auf
+    <code>--bg</code> fällt von rund 9,1:1 auf unter 6:1.</span></p>
+</div>
+
+<div class="warn">
+  <p class="label" style="color:var(--plum)">--surface</p>
+  <p><span data-i="en">At <code>.72</code> the drafting grid shows through every card. Warming
+    <code>--bg</code> toward cream turns them milky and puts the cool <code>--hairline</code>
+    visibly wrong against it. <b>A ground change re-derives every token, not one.</b></span>
+    <span data-i="de">Bei <code>.72</code> scheint das Raster durch jede Karte. Wärmt man
+    <code>--bg</code> Richtung Creme, werden sie milchig, und die kühle <code>--hairline</code>
+    steht sichtbar falsch dazu. <b>Ein Wechsel des Grundes leitet jedes Token neu her, nicht
+    eines.</b></span></p>
+</div>
+
+<h2><span data-i="en">Rules</span><span data-i="de">Regeln</span></h2>
+<ul>
+  <li><span data-i="en"><b>Single stylesheet, by design.</b> One file, mobile-first. Do not split it.</span>
+      <span data-i="de"><b>Ein Stylesheet, bewusst.</b> Eine Datei, Mobile-first. Nicht aufteilen.</span></li>
+  <li><span data-i="en"><b>Hairlines, not boxes.</b> 20 of 25 border declarations are <code>1px</code>.</span>
+      <span data-i="de"><b>Haarlinien, keine Kästen.</b> 20 von 25 Rahmen-Deklarationen sind <code>1px</code>.</span></li>
+  <li><span data-i="en"><b>No shadows.</b> Zero <code>box-shadow</code>, zero <code>text-shadow</code>.</span>
+      <span data-i="de"><b>Keine Schatten.</b> Null <code>box-shadow</code>, null <code>text-shadow</code>.</span></li>
+  <li><span data-i="en"><b>Space comes from the dial.</b> Use <code>--space-*</code>, never a raw rem in a gap.</span>
+      <span data-i="de"><b>Abstand kommt vom Regler.</b> <code>--space-*</code> nutzen, nie ein rohes rem.</span></li>
+  <li><span data-i="en"><b>Mono is annotation.</b> Labels, data, captions. Never running text.</span>
+      <span data-i="de"><b>Mono ist Bemaßung.</b> Label, Daten, Bildunterschriften. Nie Fließtext.</span></li>
+  <li><span data-i="en"><b>Colour is structural.</b> No decorative colour, no semantic red or green.</span>
+      <span data-i="de"><b>Farbe ist strukturell.</b> Keine dekorative Farbe, kein semantisches Rot oder Grün.</span></li>
+</ul>
+
+<hr>
+
+<h2><span data-i="en">Open questions</span><span data-i="de">Offene Fragen</span></h2>
+
+<h3><span data-i="en">01 &middot; The ornament should be measurement</span><span data-i="de">01 &middot; Das Ornament soll Messung sein</span></h3>
+<p><span data-i="en">A drawing carries a title block stating what it is and what it cost to make.
+  Every figure here is measured from a real build.</span>
+  <span data-i="de">Eine Zeichnung trägt ein Schriftfeld, das sagt, was sie ist und was sie
+  gekostet hat. Jede Zahl hier stammt aus einem echten Build.</span></p>
+
+<div class="grid2">
+  <div class="card"><p class="label" data-i="en">bytes JS &middot; 1 file</p>
+    <p class="label" data-i="de">Bytes JS &middot; 1 Datei</p>
+    <p style="font-size:var(--step-3);color:var(--navy);margin:.1em 0 0;font-variant-numeric:tabular-nums">4,359</p></div>
+  <div class="card"><p class="label" data-i="en">client frameworks</p>
+    <p class="label" data-i="de">Client-Frameworks</p>
+    <p style="font-size:var(--step-3);color:var(--navy);margin:.1em 0 0">0</p></div>
+  <div class="card"><p class="label" data-i="en">languages, every page</p>
+    <p class="label" data-i="de">Sprachen, jede Seite</p>
+    <p style="font-size:var(--step-3);color:var(--navy);margin:.1em 0 0">2</p></div>
+</div>
+
+<h3><span data-i="en">02 &middot; Dimension lines, once</span><span data-i="de">02 &middot; Maßlinien, einmal</span></h3>
+<figure>
+<svg viewBox="0 0 700 226" role="img" aria-label="A project card annotated with drafting dimension lines carrying measured values">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5e3458"/></marker>
+    <marker id="al" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#5e3458"/></marker>
+  </defs>
+  <rect x="90" y="34" width="420" height="146" fill="#ffffff" fill-opacity=".72" stroke="#c7cdc0"/>
+  <text x="106" y="60" font-family="'IBM Plex Sans',sans-serif" font-size="15" font-weight="600" fill="#1f3a5f">National Wireless Carrier</text>
+  <text x="106" y="79" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#555555">Lead AWS Architect &#183; 2023&#8211;2024</text>
+  <text x="106" y="106" font-family="'IBM Plex Sans',sans-serif" font-size="11.5" fill="#333333">258K migrations, five months, under 1% fallout.</text>
+  <text x="106" y="124" font-family="'IBM Plex Sans',sans-serif" font-size="11.5" fill="#333333">Kafka &#183; Lambda &#183; EventBridge backbone.</text>
+  <rect x="106" y="142" width="76" height="19" fill="none" stroke="#c7cdc0"/>
+  <text x="116" y="155" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#555555">Apache Kafka</text>
+  <rect x="188" y="142" width="60" height="19" fill="none" stroke="#c7cdc0"/>
+  <text x="198" y="155" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#555555">Lambda</text>
+  <line x1="90" y1="26" x2="90" y2="12" stroke="#5e3458" stroke-width=".8"/>
+  <line x1="510" y1="26" x2="510" y2="12" stroke="#5e3458" stroke-width=".8"/>
+  <line x1="90" y1="18" x2="510" y2="18" stroke="#5e3458" stroke-width=".8" marker-start="url(#al)" marker-end="url(#ar)"/>
+  <text x="300" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#5e3458">11 mos &#183; 258,000 migrations</text>
+  <line x1="518" y1="34" x2="548" y2="34" stroke="#5e3458" stroke-width=".8"/>
+  <line x1="518" y1="180" x2="548" y2="180" stroke="#5e3458" stroke-width=".8"/>
+  <line x1="540" y1="34" x2="540" y2="180" stroke="#5e3458" stroke-width=".8" marker-start="url(#al)" marker-end="url(#ar)"/>
+  <text x="552" y="103" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#5e3458">&lt;1%</text>
+  <text x="552" y="117" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#555555">fallout</text>
+  <line x1="182" y1="166" x2="182" y2="198" stroke="#5e3458" stroke-width=".8"/>
+  <line x1="182" y1="198" x2="292" y2="198" stroke="#5e3458" stroke-width=".8"/>
+  <text x="298" y="202" font-family="'IBM Plex Mono',monospace" font-size="10" fill="#5e3458">11 platforms orchestrated</text>
+  <text x="90" y="220" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#555555">SCALE 1:1 &#183; VALUES MEASURED, NOT DRAWN</text>
+</svg>
+<figcaption><span data-i="en">Use it once, on the strongest card. Repeated on all eight it stops
+  being a drawing convention and becomes wallpaper.</span>
+  <span data-i="de">Einmal einsetzen, an der stärksten Karte. Auf allen acht wiederholt ist es
+  keine Zeichnungskonvention mehr, sondern Tapete.</span></figcaption>
+</figure>
+
+<h3><span data-i="en">03 &middot; Break the centre</span><span data-i="de">03 &middot; Die Mitte brechen</span></h3>
+<p><span data-i="en"><code>margin-inline: auto</code> is the web's default rather than a decision,
+  and it is the one thing both Swiss and ukiyo-e composition reject. In both, negative space is
+  <em>placed</em>. Here it is merely left over.</span>
+  <span data-i="de"><code>margin-inline: auto</code> ist die Voreinstellung des Webs, keine
+  Entscheidung - und genau das lehnen Schweizer wie Ukiyo-e-Komposition ab. In beiden wird der
+  leere Raum <em>gesetzt</em>. Hier bleibt er bloß übrig.</span></p>
+<figure>
+<svg viewBox="0 0 700 196" role="img" aria-label="Two page diagrams: a centred container with equal margins, and an off-axis container whose negative space is composed">
+  <rect x="14" y="18" width="300" height="146" fill="none" stroke="#c7cdc0"/>
+  <rect x="89" y="32" width="150" height="118" fill="#1f3a5f" fill-opacity=".1" stroke="#1f3a5f"/>
+  <line x1="14" y1="91" x2="89" y2="91" stroke="#5e3458" stroke-width=".8" marker-start="url(#al)" marker-end="url(#ar)"/>
+  <line x1="239" y1="91" x2="314" y2="91" stroke="#5e3458" stroke-width=".8" marker-start="url(#al)" marker-end="url(#ar)"/>
+  <text x="51" y="86" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#5e3458">equal</text>
+  <text x="276" y="86" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#5e3458">equal</text>
+  <text x="164" y="96" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#1f3a5f">content</text>
+  <text x="14" y="184" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#555555">the void is leftover</text>
+  <rect x="386" y="18" width="300" height="146" fill="none" stroke="#c7cdc0"/>
+  <rect x="404" y="32" width="196" height="118" fill="#1f3a5f" fill-opacity=".1" stroke="#1f3a5f"/>
+  <line x1="600" y1="91" x2="686" y2="91" stroke="#5e3458" stroke-width=".8" marker-start="url(#al)" marker-end="url(#ar)"/>
+  <text x="643" y="86" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#5e3458">ma</text>
+  <text x="502" y="96" text-anchor="middle" font-family="'IBM Plex Sans',sans-serif" font-size="11" fill="#1f3a5f">content</text>
+  <rect x="620" y="112" width="50" height="36" fill="none" stroke="#c7cdc0"/>
+  <text x="645" y="133" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#555555">rail</text>
+  <text x="386" y="184" font-family="'IBM Plex Mono',monospace" font-size="9" fill="#555555">the void is composed</text>
+</svg>
+<figcaption><span data-i="en">The cheapest change available, and the one that moves the system
+  furthest. No new tokens, no new assets.</span>
+  <span data-i="de">Die günstigste verfügbare Änderung - und die mit der größten Wirkung. Keine
+  neuen Tokens, keine neuen Assets.</span></figcaption>
+</figure>
+
+<hr>
+
+<h2><span data-i="en">Use it</span><span data-i="de">Verwendung</span></h2>
+<p><code>&lt;link rel="stylesheet" href="tokens.css"&gt;</code></p>
+<p><span data-i="en">The type stack expects <a href="https://github.com/IBM/plex">IBM Plex Sans and
+  Mono</a>, open source under the SIL Open Font License. Take the tokens, take the rules, or take
+  the idea that a design system should say its own name out loud where someone will find it.</span>
+  <span data-i="de">Der Schriftstapel erwartet <a href="https://github.com/IBM/plex">IBM Plex Sans
+  und Mono</a>, quelloffen unter der SIL Open Font License. Nehmen Sie die Tokens, die Regeln -
+  oder den Gedanken, dass ein Designsystem seinen Namen laut sagen sollte, dort wo ihn jemand
+  findet.</span></p>
+
+<footer>
+  <p><span data-i="en">Recorded September 2026 &middot; token counts drift, re-count before
+    trusting them</span>
+    <span data-i="de">Aufgezeichnet im September 2026 &middot; Token-Zahlen driften, vor dem
+    Vertrauen neu zählen</span></p>
+  <p><a href="https://laudeman.io">laudeman.io</a> &middot;
+     <a href="https://github.com/paullaudeman/blueprint-design-system">source</a></p>
+</footer>
+
+</div>
+
+<script>
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.documentElement.lang=l;
+  document.getElementById('b-en').setAttribute('aria-pressed',String(l==='en'));
+  document.getElementById('b-de').setAttribute('aria-pressed',String(l==='de'));
+  try{localStorage.setItem('kbLang',l)}catch(e){}
+}
+(function(){
+  var l=null;
+  try{l=localStorage.getItem('kbLang')}catch(e){}
+  if(!l){l=(navigator.languages&&navigator.languages[0]||navigator.language||'en')
+    .toLowerCase().indexOf('de')===0?'de':'en'}
+  setLang(l);
+})();
+</script>
+</body>
+</html>
