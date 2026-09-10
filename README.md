@@ -91,7 +91,7 @@ it. A ground change is a re-derivation of every token, not a one-line edit.
 
 ---
 
-## Usage
+## How this page is built
 
 ```html
 <link rel="stylesheet" href="tokens.css">
