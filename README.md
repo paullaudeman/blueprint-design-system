@@ -100,11 +100,21 @@ it. A ground change is a re-derivation of every token, not a one-line edit.
 The type stack expects [IBM Plex Sans and IBM Plex Mono](https://github.com/IBM/plex), which are
 open source under the SIL Open Font License.
 
-Take the tokens, take the rules, or take the idea that a design system should say its own name out
+The tokens and the rules are mine; the idea is yours - that a design system should say its own name out
 loud where someone will find it.
+
+## License
+
+© 2026 Paul Laudeman. **All rights reserved** - see [LICENSE](LICENSE).
+
+Published to be read, not reused. Read it, link to it, quote it with attribution. For anything
+else - using the tokens, the rules or the drawings in your own work - get in touch via
+[laudeman.io](https://laudeman.io).
+
+Type is [IBM Plex Sans & Mono](https://github.com/IBM/plex), SIL Open Font License - licensed by IBM, not by this repo.
 
 ---
 
 [Live reference](https://paullaudeman.github.io/blueprint-design-system/) &middot; [laudeman.io](https://laudeman.io)
 
-*Recorded September 2026. Token counts drift - re-count before trusting them.*
+*Recorded September 2026. Design-token usage counts drift - re-count before trusting them.*
